@@ -1,0 +1,55 @@
+<div ng-controller='topicsController'>
+  <div class='row'>
+    <a class='col s2 offset-s10' href='#/dashboard'>Dashboard</a>
+  </div>
+  <div class='row'>
+    <div style='border-bottom-style: groove; border-radius: 5px;' class='col s12'>
+      <h4><span ng-bind='topic[0]._user.name'></span> posted a topic about <span ng-bind='topic[0].category'></span>:</h4>
+      <h5 style='text-indent: 50px;' ng-bind='topic[0].topic'></h5>
+      <p style='text-indent: 50px;' ng-bind='topic[0].description'></p>
+
+    </div>
+    <div style='margin-bottom: 70px;' class='col s10'>
+      <h5>Post your answer here...</h5>
+      <h6 style='color:red;' ng-bind='errors[0].answer.errors.text.message'></h6>
+      <form ng-submit=addAnswer()>
+        <div class='input-field'>
+          <textarea class='materialize-textarea' ng-model='newAnswer.text'></textarea>
+          <label for='name'>Answer</label>
+        </div>
+        <div class='input-field'>
+          <button type='submit' class='waves-light waves-effect btn'>Post</button>
+        </div>
+      </form>
+    </div>
+    <div ng-repeat='answer in topic[0]._answers track by $index' class='row'>
+      <div style='border-bottom-style: groove; border-radius: 5px;' class='col s8'>
+        <div class='row'>
+          <div class='col s8'>
+            <p style='font-size:120%;'><a ng-href='#/user/{{answer._user._id}}'><span ng-bind='answer._user.name'></span></a> answered: <span ng-bind='answer.text'></span></p>
+
+          </div>
+          <div class='col s4'>
+            <button ng-click='like(answer)' class='waves-light waves-effect btn green'><i class="material-icons left">thumb_up</i> <span ng-bind='answer.likes'></span></button> <button ng-click='dislike(answer)' class='waves-light waves-effect btn red'><i class="material-icons left">thumb_down</i><span ng-bind='answer.dislikes'></span></button>
+          </div>
+        </div>
+        <div class='col s11 offset-s1 row'>
+          <div class='col s8'>
+            <p ng-repeat='comment in answer._comments'><a ng-href='#/user/{{comment._user._id}}'><span ng-bind='comment._user.name'></span></a> commented: <span ng-bind='comment.text'></span></p>
+          </div>
+          <form ng-submit=addComment(answer) class='col s5'>
+            <p style='color:red;' ng-bind='answer.error.errors.text.message'></p>
+            <div class='input-field'>
+              <textarea class='materialize-textarea' ng-model='answer.newComment.text'></textarea>
+              <label for='name'>Comment</label>
+            </div>
+            <div class='input-field'>
+              <button type='submit' class='waves-light waves-effect btn'>Comment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

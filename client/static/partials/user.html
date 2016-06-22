@@ -1,0 +1,11 @@
+<div ng-controller='userpageController' class='row'>
+  <div class='col s10'>
+    <h2 ng-bind='user.name'></h2>
+    <h4>Topics: <span ng-bind='user._topics.length'></span></h4>
+    <h4>Posts: <span ng-bind='user._answers.length'></span></h4>
+    <h4>Comments: <span ng-bind='user._comments.length'></span></h4>
+  </div>
+  <div class='col 2'>
+    <a href='#/dashboard'>Dashboard</a> | <a href='#/logout'>Logout</a>
+  </div>
+</div>

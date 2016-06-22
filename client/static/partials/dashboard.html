@@ -1,0 +1,55 @@
+<div class='row'>
+  <h1 class='col s9'>Dashboard</h1><a class='col s3' href='#/'>Logout</a>
+</div>
+<div class=row ng-controller='dashboardController'>
+  <h3 class='col s12'>Welcome <span ng-bind='currentUser.name'></span></h3>
+  <div class='input-field col s9'>
+    <input ng-model='filter_name' type='text' />
+    <label>Topics</label>
+  </div>
+  <div class='col s9' style='height: 300px; overflow-y: auto; overflow-x: hidden;'>
+
+    <table style='border-bottom-style: groove;' class='highlight'>
+      <tr>
+        <th>Category</th>
+        <th>Topic</th>
+        <th>User</th>
+        <th>Posts</th>
+      </tr>
+      <tbody>
+        <tr ng-repeat='topic in topics | filter:filter_name | orderBy:id:reverse '>
+          <td ng-bind='topic.category'></td>
+          <td><a ng-href='#/topic/{{topic._id}}'><span ng-bind='topic.topic'></span></a></td>
+          <td><a ng-href='#/user/{{topic._user._id}}'><span ng-bind='topic._user.name'></span></a></td>
+          <td ng-bind='topic._answers.length'></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form ng-submit='addTopic()' class='col s5'>
+    <h4>Add a topic:</h4>
+    <h6 style='color: red;' ng-bind='errors[0].description.message'></h6>
+    <h6 style='color: red;' ng-bind='errors[0].topic.message'></h6>
+    <div class='input-field'>
+      <input type='text' ng-model='newTopic.topic' class='validate'/>
+      <label for='name'>Topic</label>
+    </div>
+    <div class='input-field'>
+      <textarea class='materialize-textarea' ng-model='newTopic.description'></textarea>
+      <label for='name'>Description</label>
+    </div>
+    <div class='input-field'>
+      <select class='browser-default' ng-model='selectedCategory' ng-options='category.name for category in categories'></select>
+    </div>
+    <div class='input-field'>
+      <button type='submit' class='waves-effect waves-light btn'>Add Topic</button>
+    </div>
+  </form>
+  <div class='col s2 offset-s1'>
+    <h4 style='color: green;'>Logged In</h4>
+    <div class='row' style='height: 200px; overflow-y: auto; overflow-x: hidden; border-left-style:groove; border-bottom-style: groove; padding-left: 10px; background-color:#D8D8D8 ;'>
+      <h5 ng-repeat='user in users'><i class="material-icons tiny">perm_identity</i> <a ng-href='#/user/{{user.id}}'><span ng-bind='user.name'></span></a></h5>
+    </div>
+  </div>
+</div>
