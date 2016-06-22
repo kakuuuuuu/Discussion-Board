@@ -57,7 +57,12 @@ board_module.controller('dashboardController', function($scope, userFactory, top
   socket.on('remove', function(name){
     $scope.$apply( function(){
       console.log($scope.users)
-      $scope.users.splice($scope.users.indexOf(name),1)
+      for(var x in $scope.users){
+        if($scope.users[x].name==name){
+          $scope.users.splice(x,1);
+          break
+        }
+      }
     })
   })
   //get errors
