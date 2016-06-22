@@ -54,15 +54,9 @@ board_module.controller('dashboardController', function($scope, userFactory, top
 
   })
   //removes user from list when user logs out
-  socket.on('remove', function(name){
+  socket.on('remove', function(names){
     $scope.$apply( function(){
-      console.log($scope.users)
-      for(var x in $scope.users){
-        if($scope.users[x].name==name){
-          $scope.users.splice(x,1);
-          break
-        }
-      }
+      $scope.users = names
     })
   })
   //get errors

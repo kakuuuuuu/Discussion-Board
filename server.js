@@ -51,7 +51,7 @@ io.sockets.on('connection', function(socket){
     }
     if(index!=-1){
       names.splice(index,1)
-      io.emit('remove', name)
+      io.emit('remove', names)
     }
     console.log(names)
   })
